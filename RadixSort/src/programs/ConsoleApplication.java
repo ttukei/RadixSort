@@ -34,7 +34,7 @@ public final class ConsoleApplication {
         
         Scanner fileScanner = null;
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("Please enter a file name: ");
+            System.out.println("Please enter a file path: ");
             final File file = new File(scanner.next());
             fileScanner = new Scanner(file);
         } catch (final FileNotFoundException e) {
@@ -76,7 +76,13 @@ public final class ConsoleApplication {
      * @param theSortedIntegers
      */
     private static void writeToOutputFile(final QueueADT<Integer> theSortedIntegers) {
-        
+        int len = theSortedIntegers.size();
+        while (len != 0) {
+            final int num = theSortedIntegers.dequeue();
+            System.out.println(num);
+            theSortedIntegers.enqueue(num);
+            len--;
+        }
         final File outputFile = new File("output.txt");
         try (Writer output = new FileWriter(outputFile, false)) {
             while (!theSortedIntegers.isEmpty()) {
@@ -93,7 +99,14 @@ public final class ConsoleApplication {
      * @param theArgs
      */
     public static void main(final String[] theArgs) {
-        
+        System.out.println("\n"
+                + "██████╗░░█████╗░██████╗░██╗██╗░░██╗░██████╗░█████╗░██████╗░████████╗\n"
+                + "██╔══██╗██╔══██╗██╔══██╗██║╚██╗██╔╝██╔════╝██╔══██╗██╔══██╗╚══██╔══╝\n"
+                + "██████╔╝███████║██║░░██║██║░╚███╔╝░╚█████╗░██║░░██║██████╔╝░░░██║░░░\n"
+                + "██╔══██╗██╔══██║██║░░██║██║░██╔██╗░░╚═══██╗██║░░██║██╔══██╗░░░██║░░░\n"
+                + "██║░░██║██║░░██║██████╔╝██║██╔╝╚██╗██████╔╝╚█████╔╝██║░░██║░░░██║░░░\n"
+                + "╚═╝░░╚═╝╚═╝░░╚═╝╚═════╝░╚═╝╚═╝░░╚═╝╚═════╝░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░\n");
         writeToOutputFile(sort(readUnsortedIntegers(getFileOfUnsortedIntegers())));
+        
     }
 }
